@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import Conversations from './Conversation';
+import Contacs from './Contacts';
 
 const CONVERSATIONS_KEY = 'conversations';
 const CONTACTS_KEY = 'contacts';
@@ -23,7 +24,9 @@ const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
         <Tab.Content>
           <Tab.Pane eventKey={CONVERSATIONS_KEY}>
             <Conversations />
-
+          </Tab.Pane>
+          <Tab.Pane eventKey={CONTACTS_KEY}>
+            <Contacs />
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
