@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
+import Conversations from './Conversation';
 
 const CONVERSATIONS_KEY = 'conversations';
 const CONTACTS_KEY = 'contacts';
@@ -10,7 +11,7 @@ const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
 
   return (
     <div style= {{ width: '250px'}} className="d-flex flex-column">
-      <Tab.Container activeKey={activeKey}>
+      <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Nav variant="tabs" classaname="justify-content-center">
           <Nav.Item>
             <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversations</Nav.Link>
@@ -19,7 +20,12 @@ const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
             <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
           </Nav.Item>
         </Nav>
+        <Tab.Content>
+          <Tab.Pane eventKey={CONVERSATIONS_KEY}>
+            <Conversations />
 
+          </Tab.Pane>
+        </Tab.Content>
       </Tab.Container>
     </div>
   )
