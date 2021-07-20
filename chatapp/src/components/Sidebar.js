@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tab, Nav } from 'react-bootstrap';
+import { Tab, Nav, Button } from 'react-bootstrap';
 import Conversations from './Conversation';
 import Contacs from './Contacts';
 
@@ -8,7 +8,8 @@ const CONTACTS_KEY = 'contacts';
 
 export default function Sidebar({ id }) {
 
-const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
+const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
+const conversationstationOpen = activeKey === CONVERSATIONS_KEY
 
   return (
     <div style= {{ width: '250px'}} className="d-flex flex-column">
@@ -32,6 +33,9 @@ const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
         <div className="p-2 border-top border-right small">
           Your Id: <spam className="text-muted">{id}</spam>
         </div>
+        <Button>
+          New {conversationstationOpen ? 'conversation' : 'Contact'}
+        </Button>
       </Tab.Container>
     </div>
   )
