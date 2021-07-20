@@ -29,6 +29,9 @@ const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
             <Contacs />
           </Tab.Pane>
         </Tab.Content>
+        <div>
+          Yuor Id: <spam className="text-muted">{id}</spam>
+        </div>
       </Tab.Container>
     </div>
   )
