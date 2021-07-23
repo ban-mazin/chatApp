@@ -8,6 +8,9 @@ const nameRef = useRef()
 
 function handleSubmit(e) {
   e.preventDefault()
+
+  //createContact(idRef.current.value, nameRef.current.value)
+  closeModal()
 }
 
 
