@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Tab, Nav, Button } from 'react-bootstrap';
+import { Tab, Nav, Button, Modal } from 'react-bootstrap';
 import Conversations from './Conversation';
 import Contacs from './Contacts';
+import NewContactModal from './NewContactModal';
+import NewConversationModal from './NewConversationModal';
 
 const CONVERSATIONS_KEY = 'conversations';
 const CONTACTS_KEY = 'contacts';
@@ -9,7 +11,12 @@ const CONTACTS_KEY = 'contacts';
 export default function Sidebar({ id }) {
 
 const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY);
-const conversationstationOpen = activeKey === CONVERSATIONS_KEY
+const [modalOpen, settModalOpen] = useState(false);
+const conversationstationOpen = activeKey === CONVERSATIONS_KEY;
+
+function closeModal() {
+  settModalOpen(false)
+}
 
   return (
     <div style= {{ width: '250px'}} className="d-flex flex-column">
@@ -33,10 +40,17 @@ const conversationstationOpen = activeKey === CONVERSATIONS_KEY
         <div className="p-2 border-top border-right small">
           Your Id: <spam className="text-muted">{id}</spam>
         </div>
-        <Button>
+        <Button onClick={() => settModalOpen(true)} className="rounded-0">
           New {conversationstationOpen ? 'conversation' : 'Contact'}
         </Button>
       </Tab.Container>
+
+      <Modal show={modalOpen} onHide={closeModal}>
+        {conversationstationOpen ?
+        <NewConversationModal closeModal={closeModal} /> :
+        <NewContactModal closeModal={closeModal} />
+      }
+      </Modal>
     </div>
   )
 }
