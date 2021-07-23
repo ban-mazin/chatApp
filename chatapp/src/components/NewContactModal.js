@@ -24,6 +24,7 @@ function handleSubmit(e) {
         <Form.Label> Name </Form.Label>
         <Form.Control type="text" ref={nameRef} required />
       </Form.Group>
+      <Button type="submit"> Create</Button>
     </Form>
 
 
