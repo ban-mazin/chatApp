@@ -1,5 +1,6 @@
 import React, {  useContext } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { useContacts } from './ContactsProvider';
 
 
 
@@ -13,7 +14,8 @@ export function useConversations() {
 
 export function ConversationsProvider({ children }) {
 
-const [conversations, setConversations] = useLocalStorage('conversations', [])
+const [conversations, setConversations] = useLocalStorage('conversations', []);
+const { contacts } = useContacts();
 
 function createConversation(recipients) {
   setConversations(prevConversations => {
@@ -21,8 +23,24 @@ function createConversation(recipients) {
   })
 }
 
+const formattedConversations = conversations.map(conversation => {
+  const recipients = conversation.recipients.map(recipient => {
+    const contact = contacts.find(contact => {
+      return contact.id === recipient
+    })
+    const name = (contact && contact.name) || recipient;
+    return { id: recipient, name}
+  })
+  return { ...conversation, recipients}
+})
+
+const value = {
+  conversations: formattedConversations,
+  createConversation
+}
+
   return (
-    <ConversationsContext.Provider value={{ conversations, createConversation }}>
+    <ConversationsContext.Provider value={value}>
       {children}
 
     </ConversationsContext.Provider>
