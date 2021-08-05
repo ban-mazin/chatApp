@@ -38,6 +38,7 @@ const formattedConversations = conversations.map((conversation, index) => {
 
 const value = {
   conversations: formattedConversations,
+  selectedConversation: formattedConversations[selectedConversationIndex],
   selectConversationIndex: setSelectedConversationIndex,
   createConversation
 }
