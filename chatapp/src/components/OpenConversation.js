@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
 
 export default function OpenConversation() {
@@ -14,7 +14,7 @@ export default function OpenConversation() {
 
       </div>
       <Form>
-        <Form.Group>
+        <Form.Group className="m-2">
           <InputGroup>
           <Form.Control 
            as="textarea"
@@ -24,6 +24,9 @@ export default function OpenConversation() {
            style={{ height: '75px', resize: 'none'}}
 
           />
+          <InputGroup.Append>
+           <Button type="submit">Send</Button>
+          </InputGroup.Append>
           
           </InputGroup>
         </Form.Group>
