@@ -12,7 +12,7 @@ export function useConversations() {
 
 
 
-export function ConversationsProvider({ children }) {
+export function ConversationsProvider({ id, children }) {
 
 const [conversations, setConversations] = useLocalStorage('conversations', []);
 const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
@@ -22,6 +22,33 @@ function createConversation(recipients) {
   setConversations(prevConversations => {
     return [...prevConversations, {recipients, messages: []}]
   })
+}
+
+function addMessageToConversation({ recipients, text, sender}) {
+ setConversations(prevConversations => {
+   let madeChange = false;
+   const newMessage = { sender, text };
+   const newConversations = prevConversations.map(conversation => {
+     if(arrayEquality(conversation.recipient, recipients)) {
+       madeChange = true;
+       return { ...conversation, messages: [ ...conversation.messages, newMessage]}
+     }
+     return conversation;
+   })
+
+   if(madeChange) {
+
+   } else {
+     return [
+       ...prevConversations,
+        {recipients, messages: [newMessage]} ]
+   }
+ })
+}
+
+function sendMessage(recipiants,text) {
+  addMessageToConversation({ recipients, text, sender: id})
+
 }
 
 const formattedConversations = conversations.map((conversation, index) => {
@@ -39,6 +66,7 @@ const formattedConversations = conversations.map((conversation, index) => {
 const value = {
   conversations: formattedConversations,
   selectedConversation: formattedConversations[selectedConversationIndex],
+  sendMessage,
   selectConversationIndex: setSelectedConversationIndex,
   createConversation
 }

@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { useConversations, selectedConversation } from '../contexts/ConversationsProvider';
 
 
 export default function OpenConversation() {
   const [text, setText] = useState('');
+  const { sendMessage } = useConversations()
 
+  function handleSubmit(e) {
+    e.preventDefault()
 
+    sendMessage(
+      selectedConversation.recipients.map(r => r.id),
+      text
+      )
+      setText('')
+  }
 
   return (
     <div className="d-flex flex-column flex-grow-1">
@@ -13,7 +23,7 @@ export default function OpenConversation() {
 
 
       </div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="m-2">
           <InputGroup>
           <Form.Control 
