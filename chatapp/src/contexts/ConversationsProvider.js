@@ -31,7 +31,9 @@ function addMessageToConversation({ recipients, text, sender}) {
    const newConversations = prevConversations.map(conversation => {
      if(arrayEquality(conversation.recipient, recipients)) {
        madeChange = true;
-       return { ...conversation, messages: [ ...conversation.messages, newMessage]}
+       return { ...conversation,
+           messages: [ ...conversation.messages,
+           newMessage]}
      }
      return conversation;
    })
@@ -56,11 +58,21 @@ const formattedConversations = conversations.map((conversation, index) => {
     const contact = contacts.find(contact => {
       return contact.id === recipient
     })
-    const name = (contact && contact.name) || recipient;
-    return { id: recipient, name}
+    const name = (contact && contact.name) || recipient
+    return { id: recipient, name }
   })
+
+  const messages = conversation.messages.map(message => {
+    const contact = contacts.find(contact => {
+      return contact.id === message.sender
+    })
+    const name = (contact && contact.name) || message.sender
+    const fromMe = id === message.sender
+    return { ...message, senderName: name, fromMe }
+  })
+  
   const selected = index === selectedConversationIndex
-  return { ...conversation, recipients, selected }
+  return { ...conversation, messages, recipients, selected }
 })
 
 const value = {
@@ -77,4 +89,15 @@ const value = {
 
     </ConversationsContext.Provider>
   )
+}
+
+function arrayEquality(a, b) {
+  if (a.length !== b.length) return false
+
+  a.sort()
+  b.sort()
+
+  return a.every((element, index) => {
+    return element === b[index]
+  })
 }
