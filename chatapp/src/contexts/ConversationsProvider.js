@@ -29,7 +29,7 @@ function addMessageToConversation({ recipients, text, sender}) {
    let madeChange = false;
    const newMessage = { sender, text };
    const newConversations = prevConversations.map(conversation => {
-     if(arrayEquality(conversation.recipient, recipients)) {
+     if(arrayEquality(conversation.recipients, recipients)) {
        madeChange = true;
        return { ...conversation,
            messages: [ ...conversation.messages,
@@ -39,6 +39,7 @@ function addMessageToConversation({ recipients, text, sender}) {
    })
 
    if(madeChange) {
+     return newConversations;
 
    } else {
      return [
@@ -48,7 +49,7 @@ function addMessageToConversation({ recipients, text, sender}) {
  })
 }
 
-function sendMessage(recipiants,text) {
+function sendMessage(recipients,text) {
   addMessageToConversation({ recipients, text, sender: id})
 
 }
