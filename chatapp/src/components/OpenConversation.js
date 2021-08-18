@@ -21,6 +21,24 @@ export default function OpenConversation() {
     <div className="d-flex flex-column flex-grow-1">
       <div className="flex-grow-1 overflow-auto">
         <div className="h-100 d-flex flex-column align-items-start justify-content-end px-3">
+          {selectedConversation.message.map((message, index))
+          => {
+            return (
+              <div
+              key={index}
+              className="my-1 d-flex flex-column"
+              >
+                <div className={`rounded px-2 py-1 ${message.from ? 'bg-primery text-white' : 'border'} `}>
+                  {message.text}
+                </div>
+                <div>
+                  {message.fromeMe ? 'You' : message.sendMessage}
+                </div>
+
+              </div>
+            )
+          }
+          }
 
         </div>
 
